@@ -16,6 +16,8 @@ public class ResponseResult implements Serializable{
 
     private String error;
 
+    private long pageSize;
+
     private Integer total;
 
     /**
@@ -31,7 +33,7 @@ public class ResponseResult implements Serializable{
      * @param status
      * @param data
      */
-    public ResponseResult(Integer status, Object data){
+    public ResponseResult(Integer status,Object data){
         this.status = status;
         this.data = data;
     }
@@ -42,10 +44,11 @@ public class ResponseResult implements Serializable{
      * @param data
      * @param total
      */
-    public ResponseResult(Integer status, Object data, Integer total) {
+    public ResponseResult(Integer status, Object data, long pageSize, Integer total) {
         this.status = status;
         this.data = data;
         this.total = total;
+        this.pageSize = pageSize;
     }
 
     /**
@@ -70,8 +73,8 @@ public class ResponseResult implements Serializable{
         return new ResponseResult(StateEnum.WARN.getState(), warn);
     }
 
-    public static ResponseResult ok(Object data, Integer total) {
-        return new ResponseResult(StateEnum.SUCCESS.getState(), data, total);
+    public static ResponseResult ok(Object data,long pageSize, Integer total) {
+        return new ResponseResult(StateEnum.SUCCESS.getState(),data, pageSize,total);
     }
 
     public static ResponseResult error(String error) {
